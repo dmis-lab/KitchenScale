@@ -34,6 +34,10 @@ git clone https://github.com/dmis-lab/KitchenScale.git
 cd KitchenScale; pip install -r requirements.txt
 ```
 
+## data
+* [DownloadLink](https://www.dropbox.com/s/f6meyqlj4ep8flj/data.tar.gz?dl=0)
+* Uncompress the file into ./data folder
+
 ## Training
 * For different tasks, change exp_ver to (dim, unit, ing_q)
 
