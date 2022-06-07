@@ -18,10 +18,11 @@ This repository is an implemenation of **KitchenScale**, a food numeracy model c
 
 ## Download
 
-* [Dataset](downloadlink)
-* [Task1 Measurement Type prediction checkpoint]()
-* [Task2 Unit prediction checkpoint]()
-* [Task3 Quantity prediction checkpoint]()
+* [Dataset](https://www.dropbox.com/s/f6meyqlj4ep8flj/data.tar.gz?dl=0)
+   * Uncompress the file into ./data folder
+* [Task1 Measurement Type prediction checkpoint](https://www.dropbox.com/s/p56mulyquthdlct/dim.ckpt?dl=0)
+* [Task2 Unit prediction checkpoint](https://www.dropbox.com/s/lu9qykkox5s1jbm/unit.ckpt?dl=0)
+* [Task3 Quantity prediction checkpoint](https://www.dropbox.com/s/8ew1wij89v6m7q6/ing_q.ckpt?dl=0)
 
 
 ## Prerequisite
@@ -33,10 +34,6 @@ This project is tested with Python 3.8, Pytorch 1.9, CUDA 11.1, Huggingface Tran
 git clone https://github.com/dmis-lab/KitchenScale.git
 cd KitchenScale; pip install -r requirements.txt
 ```
-
-## data
-* [DownloadLink](https://www.dropbox.com/s/f6meyqlj4ep8flj/data.tar.gz?dl=0)
-* Uncompress the file into ./data folder
 
 ## Training
 * For different tasks, change exp_ver to (dim, unit, ing_q)
