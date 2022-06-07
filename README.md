@@ -12,7 +12,8 @@ This repository is an implemenation of **KitchenScale**, a food numeracy model c
 
 * Our work was done by [DMIS-lab](https://dmis.korea.ac.kr/) collaborating with [SonyAI](https://ai.sony/).
 
-![figure](./imgs/teaser.png)
+
+<img src="https://github.com/dmis-lab/KitchenScale/raw/main/imgs/teaser.png" width="65%" height="65%">
 <!-- ![img2](./imgs/model.png) -->
 <!-- ![img3](./imgs/inputs.png) -->
 
