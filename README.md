@@ -69,5 +69,11 @@ python train.py \
   --early_stopping_metric=val_loss \
 ```
 
+## Inference
+
+```bash
+python infer.py
+```
+
 ## Acknowledgement
 Our work was done by DMIS-lab collaborates with Sony AI and their Gastronomy Flagship Project, it is an extension idea for making an AI for assisting recipe creation which the goal is interactively helping chefs create creative but delicious and healthy recipes.
