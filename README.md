@@ -6,22 +6,24 @@ This repository is an implemenation of **KitchenScale**, a food numeracy model c
 > Donghee Choi, Keonwoo Kim, Samy Badreddine, Hajung Kim, Donghyeon Park, Jaewoo Kang
 > Submitted in CIKM 2022
 > You can try  our demo version of **KitchenScale**
-> *http://kitchenscale.korea.ac.kr/*
+> *http://kitchenscale.korea.ac.kr/* ( Under construction )
 >
 > For more details to find out what we do, pleas visit *https://dmis.korea.ac.kr*
 
 * Our work was done by [DMIS-lab](https://dmis.korea.ac.kr/) collaborating with [SonyAI](https://ai.sony/).
 
-![figure](./imgs/teaser.png)
+
+<img src="https://github.com/dmis-lab/KitchenScale/raw/main/imgs/teaser.png" width="65%" height="65%">
 <!-- ![img2](./imgs/model.png) -->
 <!-- ![img3](./imgs/inputs.png) -->
 
 ## Download
 
-* [Dataset](downloadlink)
-* [Task1 Measurement Type prediction checkpoint]()
-* [Task2 Unit prediction checkpoint]()
-* [Task3 Quantity prediction checkpoint]()
+* [Dataset](https://www.dropbox.com/s/f6meyqlj4ep8flj/data.tar.gz?dl=0)
+   * Uncompress the file into ./data folder
+* [Task1 Measurement Type prediction checkpoint](https://www.dropbox.com/s/p56mulyquthdlct/dim.ckpt?dl=0)
+* [Task2 Unit prediction checkpoint](https://www.dropbox.com/s/lu9qykkox5s1jbm/unit.ckpt?dl=0)
+* [Task3 Quantity prediction checkpoint](https://www.dropbox.com/s/8ew1wij89v6m7q6/ing_q.ckpt?dl=0)
 
 
 ## Prerequisite
