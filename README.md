@@ -24,6 +24,7 @@ This repository is an implemenation of **KitchenScale**, a food numeracy model c
 * [Task1 Measurement Type prediction checkpoint](https://www.dropbox.com/s/p56mulyquthdlct/dim.ckpt?dl=0)
 * [Task2 Unit prediction checkpoint](https://www.dropbox.com/s/lu9qykkox5s1jbm/unit.ckpt?dl=0)
 * [Task3 Quantity prediction checkpoint](https://www.dropbox.com/s/8ew1wij89v6m7q6/ing_q.ckpt?dl=0)
+  *  To get inference results, move the checkpoints into ./checkpoints folder
 
 
 ## Prerequisite
