@@ -1,4 +1,5 @@
 import sys
+import argparse
 import os
 
 import json
@@ -16,6 +17,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.stats as stats
 import math
+import sklearn
 
 def get_list(inputs):
     converted_list = []
@@ -48,8 +50,7 @@ def get_list(inputs):
 
 class PredModel:
     def __init__(self, path, ver):
-        # path = '../checkpoints/ing_q/latest/ing_q_epoch=37-lmae_val_lmae_epoch=0.33-mae_val_mae_epoch=109.5320816040039.ckpt'
-        if ver not in ['ing_q', 'dimension', 'unit']:
+        if ver not in ['ing_q', 'dim', 'unit']:
             raise ValueError(f'ver [{ver}] canoot be used')
         self.ver = ver
 
@@ -177,7 +178,7 @@ class PredModel:
         text = self.parse_d_text(target_text, ings, title, tags, servings)
         
         # rprint(text)
-        return self.get_pred_unit_text(text)
+        return self.get_pred_dimension_text(text)
         
     def get_pred_dimension_text(self, text):
         _elem =  self.model.lm_tokenizer(text, padding='max_length', return_tensors='pt', max_length=512)
@@ -198,13 +199,19 @@ class PredModel:
         return converted_res
 
 
-# def main():
+
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--checkpoint_path', type=str, default='./checkpoints')
+    parser.add_argument('--food_data_path', type=str, default='./data')
+    
+
+    args = parser.parse_args()
+
     # main()
-    food_data_path=os.environ.get('food_data_path')
     dm = FoodNumericDataModule(
         batch_size=1,
-        food_data_path=food_data_path,
+        food_data_path=args.food_data_path,
         min_e=-2,
         n_exponent = 7,  
         size='all', 
@@ -212,7 +219,6 @@ if __name__ == '__main__':
         q_ing_phrase_ver='ing_name_q_u_mask',  # ['ing_name', 'ing_name_q_u_mask', 'ing_phrase_q_mask']
         # other_ing_phrase_ver='ing_phrase',
         other_ing_phrase_ver='ing_name', # ['ing_name', 'ing_phrase', ing_phrase_q_u_mask', 'ing_phrase_q_mask']
-        data_ver='weight_amount',
         is_include_ing_phrase=True,
         is_include_title=True,
         is_include_tags=True,
@@ -235,14 +241,36 @@ if __name__ == '__main__':
 
     df = pd.DataFrame(testset_list)
 
-    ver = 'ing_q'
-    q_path = './checkpoints/ing_q.ckpt'
-    _model_q = PredModel(q_path,ver)
-
-    for i in tqdm(range(len(df))):
+    # dim
+    print(' ## 1. Pred Dimension ')
+    _model = PredModel(f'{args.checkpoint_path}/dim.ckpt','dim')
+    _func = _model.get_pred_dimension
+    preds = []
+    for i in tqdm.tqdm(range(len(df))):
         ti = df.iloc[i]
         # print(ti)
-        pred_q = _model_q.get_pred_ing_q(
+        pred = _func(
+                        target_text=ti['target_text'],
+                        ings=ti['other_ings'].split('_'),
+                        title=ti['title'],
+                        tags=ti['tags'].split('_'),
+                        servings=ti['servings'],
+                    )
+        preds.append(pred['pred_dimension'])
+    df['pred_dim'] = preds
+    print(f"Accuracy : {sklearn.metrics.accuracy_score(df['target_dim'], df['pred_dim'])}")
+
+
+    # unit
+    print(' ## 2. Pred Unit ( Pred Dim )')
+    _model = PredModel(f'{args.checkpoint_path}/unit.ckpt','unit')
+    _func = _model.get_pred_unit
+    pred_u = []
+    pred_u2 = []
+    for i in tqdm.tqdm(range(len(df))):
+        ti = df.iloc[i]
+        # print(ti)
+        pred = _func(
                         target_text=ti['target_text'],
                         ings=ti['other_ings'].split('_'),
                         title=ti['title'],
@@ -250,19 +278,52 @@ if __name__ == '__main__':
                         tags=ti['tags'].split('_'),
                         servings=ti['servings'],
                     )
+        pred_u.append(pred['pred_unit'])
+        pred = _func(
+                        target_text=ti['target_text'],
+                        ings=ti['other_ings'].split('_'),
+                        title=ti['title'],
+                        dimension=ti['target_dim'],
+                        tags=ti['tags'].split('_'),
+                        servings=ti['servings'],
+                    )
+        pred_u2.append(pred['pred_unit'])
+    df['pred_u_pd'] = pred_u
+    df['pred_u_td'] = pred_u2
+
+    print(f"Unit Accuracy : {sklearn.metrics.accuracy_score(df['target_unit'], df['pred_u_td'])}")
+
+    # ing_q
+    _model = PredModel(f'{args.checkpoint_path}/ing_q.ckpt','ing_q')
+    _func = _model.get_pred_ing_q
+    pred_q = []
+    pred_q2 = []
+    for i in tqdm.tqdm(range(len(df))):
+        ti = df.iloc[i]
+        # print(ti)
+        pred = _func(
+                        target_text=ti['target_text'],
+                        ings=ti['other_ings'].split('_'),
+                        title=ti['title'],
+                        dimension=ti['pred_dim'],
+                        tags=ti['tags'].split('_'),
+                        servings=ti['servings'],
+                    )
+        pred_q.append(pred['pred_val'])
+        pred = _func(
+                        target_text=ti['target_text'],
+                        ings=ti['other_ings'].split('_'),
+                        title=ti['title'],
+                        dimension=ti['target_dim'],
+                        tags=ti['tags'].split('_'),
+                        servings=ti['servings'],
+                    )
+        pred_q2.append(pred['pred_val'])
+    df['pred_q_pd'] = pred_q
+    df['pred_q_td'] = pred_q2
 
 
-from typing import Union
-from fastapi import FastAPI
+    print(f"Quantity MAE : {sklearn.metrics.mean_absolute_error(df['target_quantity'], df['pred_q_td'])}")
 
-app = FastAPI()
 
-@app.get('/')
-def read_root():
-    return {
-        'Hello' : 'World'
-    }
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
