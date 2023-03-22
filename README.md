@@ -6,7 +6,7 @@ This repository is an implemenation of **KitchenScale**, a food numeracy model c
 > Donghee Choi, Keonwoo Kim, Samy Badreddine, Hajung Kim, Donghyeon Park, Jaewoo Kang
 > Submitted in CIKM 2022
 > You can try  our demo version of **KitchenScale**
-> *http://kitchenscale.korea.ac.kr/* ( Under construction )
+> *http://kitchenscale.korea.ac.kr/* 
 >
 > For more details to find out what we do, pleas visit *https://dmis.korea.ac.kr*
 
