@@ -4,11 +4,7 @@ This repository is an implemenation of **KitchenScale**, a food numeracy model c
 
 > **KitchenScale : Learning Food Numeracy from Recipes through Context-Aware Ingredient Quantity Prediction** <br>
 > Donghee Choi, Keonwoo Kim, Samy Badreddine, Hajung Kim, Donghyeon Park, Jaewoo Kang
-> Submitted in CIKM 2022
-> You can try  our demo version of **KitchenScale**
-> *http://kitchenscale.korea.ac.kr/* 
->
-> For more details to find out what we do, pleas visit *https://dmis.korea.ac.kr*
+> Expert System with Applications 2023 [https://doi.org/10.1016/j.eswa.2023.120041](https://doi.org/10.1016/j.eswa.2023.120041)
 
 * Our work was done by [DMIS-lab](https://dmis.korea.ac.kr/) collaborating with [SonyAI](https://ai.sony/).
 
